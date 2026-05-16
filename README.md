@@ -1,4 +1,3 @@
-
 ## Table of Contents
 
 1. [Introduction](#1-introduction)
@@ -86,6 +85,8 @@ Routing is the backbone of communication between stores and HQ. Each store uses 
 
 **RIP (Routing Information Protocol)** is a distance-vector protocol that updates routing tables by broadcasting the full table to neighboring routers. It is simple to configure and well-suited for smaller networks.
 
+![Store 1 Topology](images/Store1.png)
+
 #### Configuration Details
 
 - **Routing Protocol:** RIP
@@ -93,11 +94,14 @@ Routing is the backbone of communication between stores and HQ. Each store uses 
 
 #### Router Configuration
 
+
 ```
+
 Router(config)# router rip
 Router(config-router)# network 192.168.1.0
 Router(config-router)# network 192.168.10.0
 Router(config-router)# network 192.168.50.0
+
 ```
 
 ---
@@ -113,20 +117,30 @@ Router(config-router)# network 192.168.50.0
 
 #### Store 2 Router Configuration
 
+![Store 2 Topology](images/Store2.png)
+
+
 ```
+
 Router(config)# router eigrp 1
 Router(config-router)# network 192.168.20.0 0.0.0.255
 Router(config-router)# network 192.168.11.0 0.0.0.255
 Router(config-router)# network 192.168.2.0 0.0.0.255
+
 ```
 
 #### Store 4 Router Configuration
 
+![Store 4 Topology](images/Store4.png)
+
+
 ```
+
 Router(config)# router eigrp 1
 Router(config-router)# network 192.168.5.0 0.0.0.255
 Router(config-router)# network 192.168.13.0 0.0.0.255
 Router(config-router)# network 192.168.61.0 0.0.0.255
+
 ```
 
 ---
@@ -142,11 +156,16 @@ Router(config-router)# network 192.168.61.0 0.0.0.255
 
 #### Store 3 Router Configuration
 
+![Store 3 Topology](images/Store3.png)
+
+
 ```
+
 Router(config)# router ospf 1
 Router(config-router)# network 192.168.3.0 0.0.0.255 area 3
 Router(config-router)# network 192.168.30.0 0.0.0.255 area 3
 Router(config-router)# network 192.168.12.0 0.0.0.255 area 0
+
 ```
 
 ---
@@ -155,6 +174,8 @@ Router(config-router)# network 192.168.12.0 0.0.0.255 area 0
 
 Route redistribution enables the HQ router to share routing information across different routing protocols, ensuring seamless communication between all stores regardless of the protocol in use.
 
+![Headquarters Topology](images/HeadQuarters.png)
+
 Redistribution was configured on the HQ router to bridge communication between:
 - **Store 1** (RIP)
 - **Store 3** (OSPF)
@@ -162,10 +183,13 @@ Redistribution was configured on the HQ router to bridge communication between:
 
 #### HQ Router Configuration
 
+
 ```
+
 HeadquartersRouter(config)# router ospf 1
 HeadquartersRouter(config-router)# redistribute rip metric 10
 HeadquartersRouter(config-router)# redistribute eigrp 100 metric 10
+
 ```
 
 ---
@@ -240,6 +264,8 @@ Resolving these issues required a thorough understanding of both network protoco
 ## 10. Network Topology Diagram
 
 The network topology diagram provides a visual representation of the overall network design, including routers, DHCP servers, firewalls, access points, end devices, and the interconnections between all stores and HQ.
+
+![Overall Network Topology](images/Network-Topology.png)
 
 ### Network Components Summary
 
